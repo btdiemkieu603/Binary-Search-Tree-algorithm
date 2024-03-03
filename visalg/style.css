@@ -1,0 +1,165 @@
+html, body {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
+	 /* margin-left: 5px;  */
+	 margin: 0px;
+  padding: 0;
+	width: 100%;
+	height: 100%;
+}
+.Algorithm{
+	padding: 5px;
+   /* background: #a3d8c0;*/
+   color: white;
+   background:#000;
+	
+  }
+  h1{
+	position:relative;
+	text-align:center;
+	margin: 9px;
+  
+  }
+  .highlighted{
+	background:#db1515;
+  }
+ 
+  .app-container{
+	display: flex;
+    flex: 2;
+    position: relative;
+    align-items: center;
+    align-content: center;
+    margin-top: 5px;
+    justify-content: center;
+    height: 538px;
+	
+	
+	}
+	.sidebar{
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		background-color: #f8f9fa;
+		height: 507px;
+		/* margin-top: -7px; */
+		width: 210px;
+	}
+	.describe{
+	  display: flex;
+	 
+	  background-color: #b2dbdc;
+	  height: 60px;
+	}
+	.codetext{
+	  display: flex;
+	  flex-direction: column;
+	  padding-left: 20px;
+	  overflow-y: auto;
+	  
+	}
+	footer{
+	  background-color: #000;
+	  height: 45px;
+	  align-content: center;
+	  
+	}
+
+p {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+sub {
+    font-style: italic;
+	color: white;
+}
+
+.title {
+	font-size: 20px;
+	padding-right: 20px;
+}
+
+.button {
+	padding: 5px; 
+	margin: 1px;
+	border: none;
+	text-decoration: none;
+	
+}
+
+.button:hover {
+  background: #aaa;
+  text-decoration: none;
+}
+
+.top {
+	margin-top: 1em;
+	margin-left: 5px;
+}
+
+.contBox {
+	display: inline-block;
+    vertical-align: middle;
+	border: 1px solid;
+	padding: 5px 10px 5px 10px;
+}
+
+.svgdraw {
+	/* width:1000px;
+	height:500px; */
+	width: 968px;
+    height: 500px;
+    border-style: solid;
+    margin: 0px 5px ;
+	margin-right: 20px;
+  
+	/*margin: auto;*/
+}
+
+.creditBox {
+	font-size:small;
+}
+
+.dispValBox {
+	display:inline-block;
+	border-bottom: 1px solid;
+	padding: 3px;
+	width:3em;
+	height:15px;
+	text-align: right;
+}
+
+.inputValT {
+	width: 10em;
+	height: 15px;
+	text-align: right;	
+}
+
+input[type=range] {
+    vertical-align: middle;
+	height: 10px;
+}
+
+.timeConBox {
+	display: inline-block;
+    vertical-align: middle;
+	border: 1px solid;
+	padding: 10px 5px 10px 5px;
+}
+
+.message {
+	display: inline-block;	
+	width:1000px;
+	height:20px;
+	padding: 5px 5px 5px 5px;
+	overflow:auto;
+	margin: auto;
+}
+
+.node {
+    overflow: visible;
+    overflow-x: visible;
+    overflow-y: visible;
+}
+

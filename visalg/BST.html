@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Binary Search Tree</title>
+
+	<script src="svg.min.js"></script>
+	<script src="svg.panzoom.min.js"></script>
+	<script src="panControl.js"></script>
+	<script src="inputGen.js"></script>
+	<script src="TreeControl.js"></script>
+	<script src="BST.js"></script>
+
+	<script>
+		var tree = new BST();
+
+		function initPage() {
+			let draw = SVG().addTo('#drawing').size(963, 500).viewbox(0, 0, 1000, 500).panZoom({ zoomMin: 1, zoomMax: 1 })
+			draw.on('panEnd', panlimit)
+			tree.init(draw)
+			tree.click = function (e) {
+				document.getElementById("value").value = e.target.innerHTML;
+			};
+		}
+
+		function preorder(d) {
+			tree.preorder_ani();
+			message(tree.mesg);
+		}
+
+		function inorder(d) {
+			tree.inorder_ani();
+			message(tree.mesg);
+		}
+
+		function postorder(d) {
+			tree.postorder_ani();
+			message(tree.mesg);
+		}
+
+	</script>
+</head>
+
+<body onload="initPage()">
+	<header>
+		<div class="Algorithm">
+			<h1>Binary Search Tree </h1>
+			<div>Bùi Thị Diễm Kiều -B2012105</div>
+		</div>
+
+
+	</header>
+
+
+	<div class="top">
+
+		<span class="contBox">
+			Enter a key: <input type="text" value="5 10 16 8 3 30 1 26 4 40 12 9 14" id="value"
+				placeholder="1 or 1 2 3 or 1:3" class="inputValT">&nbsp;
+			<button type="button" class="button" onclick="insert(this)">Insert</button>&nbsp;
+			<button type="button" class="button" onclick="search(this)">Search</button>&nbsp;
+			<button type="button" class="button" onclick="remove(this)">Remove</button>&nbsp;
+		</span>
+
+
+		<span class="contBox">
+			<button type="button" class="button" onclick="insert_r(this)">Start insert</button>
+			<button type="button" class="button" onclick="search_r(this)">Start search</button>
+			<button type="button" class="button" onclick="remove_r(this)">Start remove</button>
+			randomly
+		</span>
+
+		<span class="contBox">
+			Tree travel:
+			<button type="button" class="button" onclick="preorder(this)"> Pre order </button>&nbsp;
+			<button type="button" class="button" onclick="inorder(this)"> In order </button>&nbsp;
+			<button type="button" class="button" onclick="postorder(this)"> Post order </button>&nbsp;
+		</span>
+		<span>
+			
+		</span>
+	</div>
+
+	<div class="app-container">
+		<div class="svgdraw root" id="drawing"></div>
+
+		<div class="sidebar">
+			<div class="describe">
+				<div class="message">&emsp;<span id="message">&emsp;</span></div>
+			</div>
+			<div class="codetext">
+				<div id="code1" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;function TreeNode (e) {</p>
+				</div>
+				<div id="code2" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.element = e; </p>
+				</div>
+				<div id="code3" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; this.left = null;</p>
+				</div>
+				<div id="code4" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; this.right = null;</p>
+				</div>
+				<div id="code5" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; this.parent_n = null;</p>
+				</div>
+				<div id="code6" class="code">
+					<p>} </p>
+				</div>
+				<div id="code7" class="code">
+					<p></p>
+				</div>
+				<div id="code8" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; function BST() {</p>
+				</div>
+				<div id="code9" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; this.root = null;</p>
+				</div>
+				<div id="code10" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; this.size = 0;</p>
+				</div>
+				<div id="code11" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code12" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; function insert(e) {</p>
+				</div>
+				<div id="code13" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var new_node = null;</p>
+				</div>
+				<div id="code14" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (this.root == null) {</p>
+				</div>
+				<div id="code14" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_node = this.createNewNode(e); </p>
+				</div>
+				<div id="code14" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.root = new_node;</p>
+				</div>
+				<div id="code17" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {</p>
+				</div>
+				<div id="code18" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; var p = null;</p>
+				</div>
+				<div id="code19" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; var current = this.root;</p>
+				</div>
+				<div id="code20" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (current != null) {</p>
+				</div>
+				<div id="code21" class="code">
+					<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; if (e < current.element) {</p>
+				</div>
+				<div id="code22" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; p = current;</p>
+				</div>
+				<div id="code23" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; current = current.left;
+					</p>
+				</div>
+				<div id="code24" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; } else if (e > current.element) {
+					</p>
+				</div>
+				<div id="code25" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; p = current;</p>
+				</div>
+
+				<div id="code26" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; current =
+						current.right;</p>
+				</div>
+				<div id="code27" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; } else {</p>
+				</div>
+				<div id="code28" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; return null;</p>
+				</div>
+				<div id="code29" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; }</p>
+				</div>
+				<div id="code30" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code31" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var new_node = this.createNewNode(e);</p>
+				</div>
+				<div id="code32" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (e < p.element) {</p>
+				</div>
+				<div id="code33" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.left = new_node;</p>
+				</div>
+				<div id="code34" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.left.parent_n = p;</p>
+				</div>
+				<div id="code35" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {</p>
+				</div>
+				<div id="code36" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.right = new_node;</p>
+				</div>
+				<div id="code37" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.right.parent_n = p;</p>
+				</div>
+				<div id="code38" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code39" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; }</p>
+				</div>
+
+				<div id="code40" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; this.size++;</p>
+				</div>
+				<div id="code41" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; return new_node;</p>
+				</div>
+				<div id="code42" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code43" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+				</div>
+				<div id="code44" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; function search(e) {</p>
+				</div>
+				<div id="code45" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; let current = this.root;</p>
+				</div>
+				<div id="code46" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (current != null) {</p>
+				</div>
+				<div id="code47" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; if (e < current.element) {</p>
+				</div>
+				<div id="code48" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current = current.left;</p>
+				</div>
+				<div id="code49" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; } else if (e > current.element) {</p>
+				</div>
+				<div id="code50" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current = current.right;</p>
+				</div>
+				<div id="code51" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; } else { </p>
+				</div>
+				<div id="code52" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;</p>
+				</div>
+				<div id="code53" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code54" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; }</p>
+				</div>
+				<div id="code55" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;</p>
+				</div>
+				<div id="code56" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code57" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; function remove(e) {</p>
+				</div>
+				<div id="code58" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; var p = null;</p>
+				</div>
+				<div id="code59" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var current = this.root;</p>
+				</div>
+				<div id="code60" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var del_p = null;</p>
+				</div>
+				<div id="code61" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; while (current != null) {</p>
+				</div>
+				<div id="code62" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (e < current.element) {</p>
+				</div>
+				<div id="code63" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p = current;</p>
+				</div>
+				<div id="code64" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current = current.left;</p>
+				</div>
+				<div id="code65" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; } else if (e > current.element) {</p>
+				</div>
+				<div id="code66" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p = current;</p>
+				</div>
+				<div id="code67" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current = current.right;</p>
+				</div>
+
+				<div id="code68" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; } else {</p>
+				</div>
+				<div id="code68" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;</p>
+				</div>
+				<div id="code70" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code71" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code72" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; if (current == null) {</p>
+				</div>
+				<div id="code73" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; return null;</p>
+				</div>
+				<div id="code74" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code75" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+				</div>
+				<div id="code76" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; if (current.left == null && current.right == null) {</p>
+				</div>
+				<div id="code77" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; if ( p != null) {</p>
+				</div>
+				<div id="code78" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; if (p.left == current ) {</p>
+				</div>
+				<div id="code79" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.left = null;</p>
+				</div>
+				<div id="code80" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code81" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; if (p.right == current ) {</p>
+				</div>
+				<div id="code82" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.right = null;</p>
+				</div>
+				<div id="code83" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code84" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code85" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; del_p = p</p>
+				</div>
+				<div id="code86" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+				</div>
+				<div id="code87" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; } else if (current.left == null || current.right == null) {</p>
+				</div>
+				<div id="code88" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (p == null) {</p>
+				</div>
+				<div id="code89" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; this.root = (current.left || current.right )
+					</p>
+				</div>
+				<div id="code90" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; del_p = this.root;</p>
+				</div>
+				<div id="code91" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; } else {</p>
+				</div>
+				<div id="code92" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (p.left == current) {</p>
+				</div>
+				<div id="code93" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.left = (current.left != null ?
+						current.left : current.right)</p>
+				</div>
+				<div id="code94" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.left.parent_n = p</p>
+				</div>
+				<div id="code95" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; } else {</p>
+				</div>
+				<div id="code96" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.right = (current.left != null ?
+						current.left : current.right)</p>
+				</div>
+				<div id="code97" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.right.parent_n = p</p>
+				</div>
+				<div id="code98" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code99" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; del_p = p</p>
+				</div>
+				<div id="code100" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; }</p>
+				</div>
+				<div id="code101" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+				</div>
+				<div id="code102" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; } else {</p>
+				</div>
+				<div id="code103" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; var parentOfLeftMost = current;</p>
+				</div>
+				<div id="code104" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; var leftmost = current.right;</p>
+				</div>
+				<div id="code105" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; while (leftmost.left != null) {</p>
+				</div>
+
+				<div id="code106" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; parentOfLeftMost = leftmost;</p>
+				</div>
+				<div id="code107" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; leftmost = leftmost.left;</p>
+				</div>
+				<div id="code108" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+
+
+				<div id="code109" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (leftmost.right == null ) { &nbsp;&nbsp;&nbsp;// no child
+					</p>
+				</div>
+				<div id="code110" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; if(leftmost.parent_n.left == leftmost)
+						leftmost.parent_n.left = null</p>
+				</div>
+				<div id="code111" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(leftmost.parent_n.right == leftmost)
+						leftmost.parent_n.right = null</p>
+				</div>
+				<div id="code112" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {</p>
+				</div>
+				<div id="code113" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // left most has one child on right</p>
+				</div>
+				<div id="code114" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(leftmost.parent_n.left == leftmost)
+						leftmost.parent_n.left = leftmost.right</p>
+				</div>
+				<div id="code115" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(leftmost.parent_n.right == leftmost)
+						leftmost.parent_n.right = leftmost.right</p>
+				</div>
+				<div id="code116" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; leftmost.parent_n.right =
+						leftmost.right</p>
+				</div>
+				<div id="code117" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; leftmost.right.parent_n = leftmost.parent_n</p>
+				</div>
+				<div id="code118" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; }</p>
+				</div>
+				<div id="code119" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; del_p = parentOfLeftMost;</p>
+				</div>
+				<div id="code120" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code121" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; this.size--;</p>
+				</div>
+				<div id="code122" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; if(this.size == 0) this.root = null;</p>
+				</div>
+				<div id="code123" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; return del_p;</p>
+				</div>
+				<div id="code124" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code125" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+				</div>
+				<div id="code126" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; function preorder(node,delay){</p>
+				</div>
+				<div id="code127" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; if (node == null) return delay;</p>
+				</div>
+				<div id="code128" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; this.mesg += node.element.toString() + " ";</p>
+				</div>
+				<div id="code129" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; delay++;</p>
+				</div>
+				<div id="code130" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; if (node.left != null) {;</p>
+				</div>
+				<div id="code131" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; var pd = delay;</p>
+				</div>
+				<div id="code132" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay = this._preorder_ani(node.left, delay);
+					</p>
+				</div>
+				<div id="code133" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code134" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (node.right != null) {</p>
+				</div>
+				<div id="code135" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay = this._preorder_ani(node.right, delay);
+					</p>
+				</div>
+				<div id="code136" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code137" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return delay; </p>
+				</div>
+				<div id="code138" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code139" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+				</div>
+				<div id="code140" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; function inorder(node, delay) {</p>
+				</div>
+				<div id="code141" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (node == null) return delay;</p>
+				</div>
+				<div id="code142" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (node.left != null) {</p>
+				</div>
+				<div id="code143" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay = this._inorder_ani(node.left, delay);</p>
+				</div>
+				<div id="code144" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code145" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.mesg += node.element.toString() + " ";</p>
+				</div>
+				<div id="code146" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (node.right != null) {</p>
+				</div>
+				<div id="code147" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay = this._inorder_ani(node.right, delay);
+					</p>
+				</div>
+				<div id="code148" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code149" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return delay;</p>
+				</div>
+				<div id="code150" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code151" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+				</div>
+				<div id="code152" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; function postorder(node, delay) {</p>
+				</div>
+				<div id="code153" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (node == null) return delay;</p>
+				</div>
+				<div id="code154" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (node.left != null) {</p>
+				</div>
+				<div id="code155" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay = this._postorder_ani(node.left, delay);
+					</p>
+				</div>
+				<div id="code156" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code157" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (node.right != null) {</p>
+				</div>
+				<div id="code158" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay = this._postorder_ani(node.right, delay);
+					</p>
+				</div>
+				<div id="code159" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+				<div id="code160" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.mesg += node.element.toString() + " ";</p>
+				</div>
+				<div id="code161" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay++;</p>
+				</div>
+				<div id="code162" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return delay;</p>
+				</div>
+				<div id="code163" class="code">
+					<p>&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<span class="timeConBox">
+			Speed:
+			<sub>s</sub>
+			<input type="range" min="1" max="5" step="1" value="3" id="timeControl" onchange="timeControl(this.value)">
+			<sub>f</sub>
+		</span>
+		<div>
+
+		</div>
+	</footer>
+
+</body>
+
+</html>
